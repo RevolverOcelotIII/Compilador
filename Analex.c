@@ -21,8 +21,9 @@ TOKEN AnaLex(FILE *fd) {
   while (1) {
     char c = fgetc(fd);
     // controle de linhas
-    if (c == '\n')
+    if (c == '\n') {
       incrementaLinha();
+    } else zeraLinhasDuplas();
 
     switch (estado) {
     case 0:

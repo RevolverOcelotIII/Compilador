@@ -8,6 +8,7 @@
 extern TOKEN t;
 extern TOKEN lookahead;
 extern FILE *fd;
+extern FILE *codigo_mp;
 
 extern char TABS[500];
 

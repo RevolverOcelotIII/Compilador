@@ -38,7 +38,7 @@ typedef struct
     TabSimb tabela_simb[TAM_MAX_TAB];
 } TabIdef;
 
-enum ESCOPO { LOCAL = 1, GLOBAL };
+enum ESCOPO { GLOBAL = 1, LOCAL };
 enum TIPO { T_INT = 1, T_REAL, T_CHAR, T_BOOL };
 enum CATEGORIA { PROCEDIMENTO = 1, PARAMETRO, V_GLOBAL, V_LOCAL, PROTOTIPO };
 enum PASSAGEM { REFERENCIA = 1, VALOR };
@@ -58,5 +58,7 @@ int BuscarEscopo(char lexema[], int escopo);
 int InserirTabela(TabSimb ultimoSimbolo);
 int Remover_ultimo();
 void RemoverSimbolosProc();
+int VerificarDistanciaParametro(int indiceParametro);
+int VerificarContagemParametros(int indiceFuncao);
 
 #endif

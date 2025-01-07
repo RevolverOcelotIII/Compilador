@@ -11,6 +11,7 @@ void PrintNodoInt(int val, int movim);
 void PrintNodoFloat(float val, int movim);
 void PrintNodoChar(char val, int movim);
 void incrementaLinha();
+void zeraLinhasDuplas();
 void zeraLinhas();
 
 #endif

@@ -3,7 +3,8 @@
 #include <string.h>
 #include "Funcaux.h"
 
-int contador_linhas = 0;
+int contador_linhas = 1;
+int contador_linhas_duplas = 0;
 
 void PrintNodo(char info[], int movim) {
   return;
@@ -52,7 +53,14 @@ void PrintNodoChar(char val, int movim) {
 }
 
 void incrementaLinha () {
-  contador_linhas ++;
+  contador_linhas_duplas++;
+  if(contador_linhas_duplas < 2) {
+    contador_linhas ++;
+  } else contador_linhas_duplas = 0;
+}
+
+void zeraLinhasDuplas () {
+  contador_linhas_duplas = 0;
 }
 
 void zeraLinhas() {
@@ -60,6 +68,6 @@ void zeraLinhas() {
 }
 
 void erro (char val[]) {
-  printf("Erro na linha %d: %s\n", contador_linhas -1, val);
+  printf("Erro na linha %d: %s\n", contador_linhas, val);
   exit(0);
 }
