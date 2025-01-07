@@ -136,7 +136,7 @@ void FlushSimbolo() {
   ultimoSimbolo.array = 0;
   ultimoSimbolo.categoria = 0;
   ultimoSimbolo.dim1 = 0;
-  ultimoSimbolo.dim2 = 0;
+  ultimoSimbolo.dim2 = 1;
   ultimoSimbolo.is_const = 0;
   ultimoSimbolo.tipo = 0;
   ultimoSimbolo.endereco = 0;
@@ -219,7 +219,7 @@ void DeclVar() {
     InserirTabela(ultimoSimbolo);
     simbolo_inserido = TRUE;
     if (t.cat == SN && t.codigo == ATRIBUICAO) {
-      fprintf(codigo_mp, "AMEM %d\n", ultimoSimbolo.dim1);
+      fprintf(codigo_mp, "AMEM %d\n", ultimoSimbolo.dim1 * ultimoSimbolo.dim2);
       PrintNodo("=", MANTEM);
       t = AnaLex(fd);
       if (t.cat == SN && t.codigo == A_CHAVES) {
@@ -271,6 +271,9 @@ void DeclVar() {
                        contadorEnderecoGlobal);
                 contadorEnderecoGlobal++;
               }
+              if (i >= ultimoSimbolo.dim1 * ultimoSimbolo.dim2)
+                erro("Limite do array ultrapassado");
+              i++;
             }
             PrintNodo(tabela_literais[t.codigo], MANTEM);
           }
@@ -1035,8 +1038,8 @@ int Expr() {
     int segundo_tipo = ExprSimp();
     int primeiraLabel = 0;
     int segundaLabel = 0;
-    comparaTipos(primeiro_tipo, segundo_tipo);
     switch(tipoOpRel) {
+      comparaTipos(primeiro_tipo, segundo_tipo);
       case COMPARACAO:
         fprintf(codigo_mp, "SUB\n");
         primeiraLabel = ++ultimoRotulo;
@@ -1332,7 +1335,7 @@ void Cmd() {
 
       case GETOUT:
         PrintNodo("getout", MANTEM);
-        fprintf(codigo_mp, "GETOUT\n");
+        fprintf(codigo_mp, "RET 1,0\n");
         break;
 
       case GETINT:
